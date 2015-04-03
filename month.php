@@ -1,5 +1,5 @@
 <table class="<?=$classes?>">
-	<tr class="hosts-span">
+	<tr class="has-spanned-cell">
 		<th class="main-header" rowspan="2">
 			<p class="month-text"></p>
 			<p class="year-text"><?=$year?></p>
@@ -12,11 +12,9 @@
 		<th>Saturday</th>
 		<th>Sunday</th>
 	</tr>
-	<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-	<tr class="hosts-span">
+	<?php trs(1,7); ?>
+	<tr class="has-spanned-cell">
 		<td class="notes-box" rowspan="4">
-		<td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-	<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-	<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-	<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+		<?php tds(7); ?></tr>
+	<?php trs(3,7); ?>
 </table>

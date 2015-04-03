@@ -79,11 +79,11 @@ td {
 	height: @cell-height;
 	border: @border solid black;
 }
-tr.hosts-span {
+tr.has-spanned-cell {
 	:nth-child(4) { border-right: none; }
 	:nth-child(5) { border-left: none; padding-left: @padding + @nonspine-shrink*3; }
 }
-tr:not(.hosts-span) {
+tr:not(.has-spanned-cell) {
 	:nth-child(3) { border-right: none; }
 	:nth-child(4) { border-left: none; padding-left: @padding + @nonspine-shrink*3; }
 }

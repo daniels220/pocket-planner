@@ -1,15 +1,26 @@
-<!DOCTYPE html>
+<?php
+function tds($count) {
+	for ($i=0;$i<$count;$i++)
+		echo '<td></td>';
+}
+function trs($count,$length) {
+	for ($i=0;$i<$count;$i++) {
+		echo '<tr>';
+		tds($length);
+		echo "</tr>\n";
+	}
+}
+?><!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf8"/>
-	<link rel="stylesheet" type="text/css" href="style.css" media="print"/>
-	<link rel="stylesheet" type="text/css" href="style.css" media="screen"/>
+	<link rel="stylesheet" href="style.css" />
 	<title></title>
 </head>
 
 <body>
 	<?php
-	$year = (int)$_GET['year'];
+	$year = (int)(isset($_GET['year']) ? $_GET['year'] : date('Y'));
 	$start = new DateTime();
 	for ($m = 1; $m <= 12; $m++) {
 		$start->setDate($year,$m,1);
