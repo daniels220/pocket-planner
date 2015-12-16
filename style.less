@@ -8,9 +8,11 @@
 @header-height: 26px;
 @cell-height: (@height - @header-height) / 5;
 
+@left-header-width: 36.2px;
 @nonspine-shrink: 2px;
-@normal-width: @width/8 - @nonspine-shrink;
-@center-width: @width/8 + @nonspine-shrink*3;
+@normal-width: (@width - @left-header-width * 2) / 6 - @nonspine-shrink;
+@center-width: @normal-width + @nonspine-shrink*3;
+@weekend-width: @normal-width + @left-header-width;
 
 @page {
 	size: @width @height;
@@ -23,8 +25,6 @@ html { box-sizing: border-box !important; }
 html, body { width: @width; height: @height; margin:0; padding: 0; }
 body { font:@font-size/1 Arial; }
 
-.feb, .sep, .nov, .dec { .month-text { font-family: "Arial Narrow"; } }
-
 table, thead, tbody, tfoot, tr, th, td, p { border: 0 none; margin:0; padding: 0; }
 
 table {
@@ -35,24 +35,20 @@ table {
 }
 
 tr:nth-child(2) td { border-top: none; }
-tr:last-child td, td.notes-box { border-bottom: none; }
+tr:last-child td, tr:nth-last-child(2) td { border-bottom: none; }
 td.notes-box { border-left: none; }
 
 th, td {
 	font-weight: normal;
 	padding: @padding; width: @normal-width;
-	&:last-child { border-right: none; }
+	&:last-child { width: @weekend-width; border-right: none; }
 }
 
-th {
-	&:not(.main-header) {
-		height: @header-height;
-		background: black;
-		color: white;
-		&:not(:last-child) { border-right: @border solid white; }
-	}
-	&.main-header { border-right: @border solid black; }
-	&.wed { font-family: "Arial Narrow"; }
+th:not(.main-header) {
+	height: @header-height;
+	background: black;
+	color: white;
+	&:not(:last-child) { border-right: @border solid white; }
 	&:nth-child(4), &:nth-child(5) { width: @center-width; }
 }
 
@@ -60,11 +56,27 @@ th {
 .month-text { font-size: 18px; }
 .year-text { font-size: 26px; font-weight: bold;}
 
+.main-header {
+	height: @height;
+	width: @left-header-width;
+	border-right: @border solid black;
+	vertical-align: top;
+	padding: 0;
+	div {
+		height: @left-header-width;
+		display: inline-block;
+		margin: 0; padding: 0;
+		white-space: nowrap;
+		transform: rotate(-90deg) translate(-100%) translate(-0.3em);
+		transform-origin: 0.3em 0;
+	}
+}
 
 td {
 	vertical-align: top;
 	height: @cell-height;
 	border: @border solid black;
+	&:last-child { height: @cell-height / 2; }
 }
 tr.has-spanned-cell :nth-child(5), tr:not(.has-spanned-cell) :nth-child(4) {
 	padding-left: @padding + @nonspine-shrink*3;
@@ -97,9 +109,14 @@ table {
 	.skip-after-for(@offset,0);
 }
 
-.skip-until(@count) when (@count > 0) {
+.skip-until(@count) when (@count > 0) { .skip-until(@count - 1); }
+
+.skip-until(@count) when (@count < 6) {
 	tr:nth-child(2) td:nth-child(@{count}) { .no-number; }
-	.skip-until(@count - 1);
+}
+
+.skip-until(@count) when (@count = 6) {
+	tr:nth-child(2) td:last-child { &::before { content: none; } counter-increment: none; }
 }
 
 .skip-after-for(@offset,@counter) when (@counter < 4) {
@@ -108,8 +125,13 @@ table {
 	.skip-after-for(@offset,@counter + 1)
 }
 
-.skip-after(@count) when (@count <= 7) {
-	tr:last-child td:nth-child(@{count}) { .no-number; }
+.skip-after(@count) when (@count = 7) {
+	tr:last-child td:last-child { .no-number; }
+	tr:nth-last-child(2) td:last-child { border:none; }
+}
+
+.skip-after(@count) when (@count < 7) {
+	tr:nth-last-child(2) td:nth-child(@{count}) { .no-number; }
 	.skip-after(@count + 1);
 }
 
@@ -129,7 +151,7 @@ table.sun-s.d-30 { .split-cells(29,1); }
 table.sat-s.d-31 { .split-cells(30,1); }
 
 .split-cells(@day,@count) when (@count > 0) {
-	tr:last-child td:nth-child(@{count}) {
+	tr:nth-last-child(2) td:nth-child(@{count}) {
 		position:relative;
 		&::after {
 			@num: @day + @count;
