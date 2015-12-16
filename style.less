@@ -1,13 +1,14 @@
 @unit: px;
 @height: convert(6in,px);
-@header-height: 26px;
 @width: convert(7in,px);
 @font-size: 16px;
 @padding: 4px;
 @border: 1px;
 
-@nonspine-shrink: 2px;
+@header-height: 26px;
 @cell-height: (@height - @header-height) / 5;
+
+@nonspine-shrink: 2px;
 @normal-width: @width/8 - @nonspine-shrink;
 @center-width: @width/8 + @nonspine-shrink*3;
 
@@ -21,21 +22,16 @@ html { box-sizing: border-box !important; }
 
 html, body { width: @width; height: @height; margin:0; padding: 0; }
 body { font:@font-size/1 Arial; }
-table { margin-bottom: 1in; }
 
-.month-text, .year-text { overflow:hidden; text-align: center; }
-.month-text { font-size: 18px; }
-.year-text { font-size: 26px; font-weight: bold; }
 .feb, .sep, .nov, .dec { .month-text { font-family: "Arial Narrow"; } }
 
 table, thead, tbody, tfoot, tr, th, td, p { border: 0 none; margin:0; padding: 0; }
 
 table {
+	margin-bottom: 1in; 
 	table-layout:fixed;
 	border-spacing:0; border-collapse: collapse;
 	width:100%; height: 100%;
-	// page-break-inside: avoid;
-	// page-break-after: always;
 }
 
 tr:nth-child(2) td { border-top: none; }
@@ -43,12 +39,12 @@ tr:last-child td, td.notes-box { border-bottom: none; }
 td.notes-box { border-left: none; }
 
 th, td {
+	font-weight: normal;
 	padding: @padding; width: @normal-width;
 	&:last-child { border-right: none; }
 }
 
 th {
-	font-weight: normal;
 	&:not(.main-header) {
 		height: @header-height;
 		background: black;
@@ -59,6 +55,11 @@ th {
 	&.wed { font-family: "Arial Narrow"; }
 	&:nth-child(4), &:nth-child(5) { width: @center-width; }
 }
+
+.month-text, .year-text { vertical-align: middle; text-align: center; }
+.month-text { font-size: 18px; }
+.year-text { font-size: 26px; font-weight: bold;}
+
 
 td {
 	vertical-align: top;
