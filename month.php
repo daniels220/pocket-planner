@@ -1,16 +1,10 @@
 <table class="<?=$classes?>">
 	<tr class="has-spanned-cell">
 		<th class="main-header" rowspan="2">
-			<p class="month-text"></p>
-			<p class="year-text"><?=$year?></p>
+			<span class="month-text"><?=$month?></span>
+			<span class="year-text"><?=$year?></span>
 		</th>
-		<th>Monday</th>
-		<th>Tuesday</th>
-		<th class="wed">Wednesday</th>
-		<th>Thursday</th>
-		<th>Friday</th>
-		<th>Saturday</th>
-		<th>Sunday</th>
+		<th>Monday</th><th>Tuesday</th><th class="wed">Wednesday</th><th>Thursday</th><th>Friday</th><th>Saturday</th><th>Sunday</th>
 	</tr>
 	<?php trs(1,7); ?>
 	<tr class="has-spanned-cell">

@@ -25,22 +25,8 @@ table { margin-bottom: 1in; }
 
 .month-text, .year-text { overflow:hidden; text-align: center; }
 .month-text { font-size: 18px; }
-.feb, .sep, .nov, .dec { .month-text { font-family: "Arial Narrow"; } }
 .year-text { font-size: 26px; font-weight: bold; }
-// .jan, .mar, .may, .jul, .aug, .oct, .dec { .d-31 }
-// .apr, .jun, .sep, .nov { .d-30 }
-.jan .month-text::before { content: "January"; }
-.feb .month-text::before { content: "February"; }
-.mar .month-text::before { content: "March"; }
-.apr .month-text::before { content: "April"; }
-.may .month-text::before { content: "May"; }
-.jun .month-text::before { content: "June"; }
-.jul .month-text::before { content: "July"; }
-.aug .month-text::before { content: "August"; }
-.sep .month-text::before { content: "September"; }
-.oct .month-text::before { content: "October"; }
-.nov .month-text::before { content: "November"; }
-.dec .month-text::before { content: "December"; }
+.feb, .sep, .nov, .dec { .month-text { font-family: "Arial Narrow"; } }
 
 table, thead, tbody, tfoot, tr, th, td, p { border: 0 none; margin:0; padding: 0; }
 
@@ -79,13 +65,18 @@ td {
 	height: @cell-height;
 	border: @border solid black;
 }
-tr.has-spanned-cell {
-	:nth-child(4) { border-right: none; }
-	:nth-child(5) { border-left: none; padding-left: @padding + @nonspine-shrink*3; }
+tr.has-spanned-cell :nth-child(5), tr:not(.has-spanned-cell) :nth-child(4) {
+	padding-left: @padding + @nonspine-shrink*3;
 }
-tr:not(.has-spanned-cell) {
-	:nth-child(3) { border-right: none; }
-	:nth-child(4) { border-left: none; padding-left: @padding + @nonspine-shrink*3; }
+table:not(.jul) {
+	tr.has-spanned-cell {
+		:nth-child(4) { border-right:none; }
+		:nth-child(5) { border-left:none; }
+	}
+	tr:not(.has-spanned-cell) {
+		:nth-child(3) { border-right:none; }
+		:nth-child(4) { border-left:none; }
+	}
 }
 
 //Days

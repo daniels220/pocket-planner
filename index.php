@@ -12,6 +12,7 @@
 	$start = new DateTime();
 	for ($m = 1; $m <= 12; $m++) {
 		$start->setDate($year,$m,1);
+		$month = $start->format('F');
 		$classes = strtolower($start->format('M D-\s \d-t'));
 		include 'month.php';
 	}
